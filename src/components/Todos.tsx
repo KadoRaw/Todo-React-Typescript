@@ -11,7 +11,7 @@ const Todos: React.FC<{}> = () => {
   return (
     <ul className={styles.todos}>
       {todos.map((todo) => (
-        <TodoItem todo={todo} />
+        <TodoItem todo={todo} key={todo.id} />
       ))}
     </ul>
   );
