@@ -1,28 +1,23 @@
-import { useRef } from 'react';
-import Todo from '../models/todo';
-import htmlService from '../service/htmlService';
+import { useRef, useContext } from 'react';
+import styles from './NewTodo.module.css';
+import { TodosContext } from '../store/todos-context';
 
 const NewTodo = () => {
   const textInputRef = useRef<HTMLInputElement>(null);
+  const todoCtx = useContext(TodosContext);
 
-  const submitHandler = async (event: React.FormEvent) => {
+  const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const enteredText = textInputRef.current?.value;
     if (enteredText?.trim().length === 0) {
       return;
     }
-    const todo = new Todo(enteredText!.trim());
 
-    const response = await htmlService.post<Todo>(
-      `https://todo-typescript-bcc8c-default-rtdb.europe-west1.firebasedatabase.app/${todo.id}.json`,
-      todo
-    );
-
-    console.log(response);
+    todoCtx.addTodo(enteredText!);
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={styles.form} onSubmit={submitHandler}>
       <label htmlFor='text'>ToDo</label>
       <input type='text' id='text' ref={textInputRef} />
       <button>Add ToDo</button>
