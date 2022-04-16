@@ -1,12 +1,13 @@
-import { useRef, useContext } from 'react';
-
-import { TodosContext } from '../../store/todos-context';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import Todo from '../../models/todo';
+import { todoActions } from '../../store/todos-slice';
 
 import styles from './index.module.css';
 
 const NewTodo = () => {
   const textInputRef = useRef<HTMLInputElement>(null);
-  const todoCtx = useContext(TodosContext);
+  const dispactch = useDispatch();
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
@@ -14,8 +15,11 @@ const NewTodo = () => {
     if (enteredText?.trim().length === 0) {
       return;
     }
-
-    todoCtx.addTodo(enteredText!);
+    const todo: Todo = {
+      id: Math.random().toString(),
+      text: enteredText!,
+    };
+    dispactch(todoActions.addTodo(todo));
   };
 
   return (

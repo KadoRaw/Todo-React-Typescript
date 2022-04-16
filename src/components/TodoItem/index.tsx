@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { todoActions } from '../../store/todos-slice';
 
-import { TodosContext } from '../../store/todos-context';
 import Todo from '../../models/todo';
 
 import styles from './index.module.css';
 
 const TodoItem: React.FC<{ todo: Todo }> = ({ todo }) => {
-  const todoCtx = useContext(TodosContext);
+  const dispactch = useDispatch();
 
   const deleteHandler = () => {
-    todoCtx.removeTodo(todo.id);
+    dispactch(todoActions.removeTodo(todo.id));
   };
 
   return (
