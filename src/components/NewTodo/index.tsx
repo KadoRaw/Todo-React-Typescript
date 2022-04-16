@@ -1,6 +1,8 @@
 import { useRef, useContext } from 'react';
-import styles from './NewTodo.module.css';
-import { TodosContext } from '../store/todos-context';
+
+import { TodosContext } from '../../store/todos-context';
+
+import styles from './index.module.css';
 
 const NewTodo = () => {
   const textInputRef = useRef<HTMLInputElement>(null);
